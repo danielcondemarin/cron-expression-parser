@@ -1,0 +1,33 @@
+{
+  "name": "cron-expression-parser",
+  "version": "1.0.0",
+  "description": "CLI tool to parse cron expressions",
+  "main": "dist/index.js",
+  "bin": "dist/cli.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielcondemarin/cron-expression-parser.git"
+  },
+  "keywords": [
+    "cron",
+    "parser",
+    "expression"
+  ],
+  "author": "Daniel Conde Marin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielcondemarin/cron-expression-parser/issues"
+  },
+  "homepage": "https://github.com/danielcondemarin/cron-expression-parser#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.20",
+    "jest": "^26.6.3"
+  }
+}
