@@ -10,20 +10,16 @@ import {
   TimeUnit,
 } from "./time-unit";
 
-export interface OperationParser {
-  canParse: (expression: string) => boolean;
-  parse: (expression: string, timeUnit: TimeUnit) => number[];
-}
-
-type ParsedExpression = {
+export type ParsedExpression = {
   minute: number[];
   hour: number[];
   dayOfMonth: number[];
   month: number[];
   dayOfWeek: number[];
+  command: string;
 };
 
-const parsers: OperationParser[] = [list, step, range];
+const parsers = [list, step, range];
 
 const parsePart = (part: string, timeUnit: TimeUnit) => {
   for (let parser of parsers) {
@@ -40,6 +36,7 @@ const parser = (expression: string): ParsedExpression => {
     dayOfMonthStr,
     monthStr,
     dayOfWeek,
+    command,
   ] = expression.split(" ");
 
   return {
@@ -48,6 +45,7 @@ const parser = (expression: string): ParsedExpression => {
     dayOfMonth: parsePart(dayOfMonthStr, DayOfMonth),
     month: parsePart(monthStr, Month),
     dayOfWeek: parsePart(dayOfWeek, DayOfWeek),
+    command,
   };
 };
 
