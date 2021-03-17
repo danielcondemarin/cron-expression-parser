@@ -1,24 +1,29 @@
 import { Token } from "./tokens";
 
-const range = (expression: string): number[] => {
-  if (expression === Token.Asterisk) {
-    let firstToLast = [];
+export default {
+  canParse: (expression: string) => {
+    return (
+      expression.includes(Token.Dash) || expression.includes(Token.Asterisk)
+    );
+  },
+  parse: (expression: string) => {
+    if (expression === Token.Asterisk) {
+      let firstToLast = [];
 
-    for (let i = 0; i <= 59; i++) {
-      firstToLast.push(i);
+      for (let i = 0; i <= 59; i++) {
+        firstToLast.push(i);
+      }
+
+      return firstToLast;
     }
 
-    return firstToLast;
-  }
+    let range = [];
+    const [start, end] = expression.split(Token.Dash).map(Number);
 
-  let range = [];
-  const [start, end] = expression.split(Token.Dash).map(Number);
+    for (let m = start; m <= end; m++) {
+      range.push(m);
+    }
 
-  for (let m = start; m <= end; m++) {
-    range.push(m);
-  }
-
-  return range;
+    return range;
+  },
 };
-
-export default range;

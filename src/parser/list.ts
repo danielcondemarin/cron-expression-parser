@@ -1,7 +1,10 @@
 import { Token } from "./tokens";
 
-const list = (expression: string) => {
-  return expression.split(Token.Comma).map(Number);
+export default {
+  parse: (expression: string) => {
+    return expression.split(Token.Comma).map(Number);
+  },
+  canParse: (expression: string) => {
+    return expression.includes(Token.Comma);
+  },
 };
-
-export default list;

@@ -11,7 +11,6 @@
 import list from "./list";
 import range from "./range";
 import step from "./step";
-import { Token } from "./tokens";
 
 type ParsedExpression = {
   minute: number[];
@@ -19,18 +18,14 @@ type ParsedExpression = {
 
 const parser = (expression: string): ParsedExpression => {
   const [minuteStr] = expression.split(" ");
+  const parsers = [list, range, step];
 
   let minute = [];
 
-  if (expression.includes(Token.Comma)) {
-    minute = list(minuteStr);
-  } else if (expression.includes(Token.Slash)) {
-    minute = step(minuteStr);
-  } else if (
-    expression.includes(Token.Dash) ||
-    expression.includes(Token.Asterisk)
-  ) {
-    minute = range(minuteStr);
+  for (let { canParse, parse } of parsers) {
+    if (canParse(minuteStr)) {
+      minute = parse(minuteStr);
+    }
   }
 
   return {
