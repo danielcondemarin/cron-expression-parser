@@ -1,3 +1,4 @@
+import { TimeUnit } from "../time-unit";
 import { Token } from "./tokens";
 
 export default {
@@ -6,11 +7,11 @@ export default {
       expression.includes(Token.Dash) || expression.includes(Token.Asterisk)
     );
   },
-  parse: (expression: string) => {
+  parse: (expression: string, timeUnit: TimeUnit) => {
     if (expression === Token.Asterisk) {
       let firstToLast = [];
 
-      for (let i = 0; i <= 59; i++) {
+      for (let i = timeUnit.lowerBound; i <= timeUnit.upperBound; i++) {
         firstToLast.push(i);
       }
 
