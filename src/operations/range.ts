@@ -15,23 +15,21 @@ export default {
     );
   },
   parse: (expression: string, timeUnit: TimeUnit) => {
+    let start: number;
+    let end: number;
+
     if (expression === Token.Asterisk) {
-      let firstToLast = [];
-
-      for (let i = timeUnit.lowerBound; i <= timeUnit.upperBound; i++) {
-        firstToLast.push(i);
-      }
-
-      return firstToLast;
+      start = timeUnit.lowerBound;
+      end = timeUnit.upperBound;
+    } else {
+      [start, end] = expression.split(Token.Dash).map(Number);
     }
-
-    let range = [];
-    const [start, end] = expression.split(Token.Dash).map(Number);
 
     if (start < timeUnit.lowerBound || end > timeUnit.upperBound) {
       throw new InvalidRangeError(`Invalid range bounds: ${expression}`);
     }
 
+    let range = [];
     for (let m = start; m <= end; m++) {
       range.push(m);
     }
