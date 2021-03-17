@@ -17,3 +17,13 @@ export const DayOfMonth = {
   lowerBound: 1,
   upperBound: 31,
 };
+
+export const Month = {
+  lowerBound: 1,
+  upperBound: 12,
+};
+
+export const DayOfWeek = {
+  lowerBound: 0,
+  upperBound: 7,
+};

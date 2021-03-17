@@ -1,4 +1,4 @@
-import { Token } from "./tokens";
+import { Token } from "../tokens";
 
 export default {
   parse: (expression: string) => {

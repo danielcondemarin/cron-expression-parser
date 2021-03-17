@@ -1,5 +1,5 @@
 import { TimeUnit } from "../time-unit";
-import { Token } from "./tokens";
+import { Token } from "../tokens";
 
 export class InvalidStepError extends Error {
   constructor(message: string) {

@@ -1,5 +1,5 @@
-import { InvalidRangeError } from "../src/operations/range";
-import { InvalidStepError } from "../src/operations/step";
+import { InvalidRangeError } from "../src/parser/operations/range";
+import { InvalidStepError } from "../src/parser/operations/step";
 import parser from "../src/parser";
 
 describe("Given I parse an invalid cron expression", () => {
@@ -8,6 +8,7 @@ describe("Given I parse an invalid cron expression", () => {
     ${"0-90 * * * *"} | ${"is out of bounds"}
     ${"* 0-60 * * *"} | ${"is out of bounds"}
     ${"* * 0-10 * *"} | ${"is out of bounds"}
+    ${"* * * 0-13 *"} | ${"is out of bounds"}
     ${"* a-b * * *"}  | ${"has invalid values"}
     ${"* * a-b * *"}  | ${"has invalid values"}
   `("When the range $problem", ({ expression }) => {

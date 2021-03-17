@@ -1,5 +1,5 @@
 import { TimeUnit } from "../time-unit";
-import { Token } from "./tokens";
+import { Token } from "../tokens";
 
 export class InvalidRangeError extends Error {
   constructor(message: string) {

@@ -57,4 +57,36 @@ describe("Given I parse a valid cron expression", () => {
       });
     }
   );
+
+  describe.each`
+    operator | expression          | expected
+    ${","}   | ${"* * * 1,5,10 *"} | ${[1, 5, 10]}
+    ${"*/"}  | ${"* * * */10 *"}   | ${[1, 11]}
+    ${"-"}   | ${"* * * 1-10 *"}   | ${sequence(1, 10)}
+    ${"*"}   | ${"* * * * *"}      | ${sequence(1, 12)}
+  `(
+    "When the month contains the operator '$operator'",
+    ({ expression, expected }) => {
+      it("Then it parses it successfully", () => {
+        const parsed = parser(expression);
+        expect(parsed.month).toEqual(expected);
+      });
+    }
+  );
+
+  describe.each`
+    operator | expression       | expected
+    ${","}   | ${"* * * * 1,2"} | ${[1, 2]}
+    ${"*/"}  | ${"* * * * */7"} | ${[0, 7]}
+    ${"-"}   | ${"* * * * 1-5"} | ${sequence(1, 5)}
+    ${"*"}   | ${"* * * * *"}   | ${sequence(0, 7)}
+  `(
+    "When the day of the week contains the operator '$operator'",
+    ({ expression, expected }) => {
+      it("Then it parses it successfully", () => {
+        const parsed = parser(expression);
+        expect(parsed.dayOfWeek).toEqual(expected);
+      });
+    }
+  );
 });
