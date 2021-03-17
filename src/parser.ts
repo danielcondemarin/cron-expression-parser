@@ -2,11 +2,12 @@ import { OperationParser } from "./operations";
 import list from "./operations/list";
 import range from "./operations/range";
 import step from "./operations/step";
-import { Hours, Minutes, TimeUnit } from "./time-unit";
+import { DayOfMonth, Hours, Minutes, TimeUnit } from "./time-unit";
 
 type ParsedExpression = {
   minute: number[];
   hour: number[];
+  dayOfMonth: number[];
 };
 
 const parsers: OperationParser[] = [list, step, range];
@@ -20,11 +21,12 @@ const parsePart = (part: string, timeUnit: TimeUnit) => {
 };
 
 const parser = (expression: string): ParsedExpression => {
-  const [minuteStr, hourStr] = expression.split(" ");
+  const [minuteStr, hourStr, dayOfMonth] = expression.split(" ");
 
   return {
     minute: parsePart(minuteStr, Minutes),
     hour: parsePart(hourStr, Hours),
+    dayOfMonth: parsePart(dayOfMonth, DayOfMonth),
   };
 };
 

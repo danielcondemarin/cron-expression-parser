@@ -25,7 +25,12 @@ export default {
       [start, end] = expression.split(Token.Dash).map(Number);
     }
 
-    if (start < timeUnit.lowerBound || end > timeUnit.upperBound) {
+    if (
+      start < timeUnit.lowerBound ||
+      end > timeUnit.upperBound ||
+      isNaN(start) ||
+      isNaN(end)
+    ) {
       throw new InvalidRangeError(`Invalid range bounds: ${expression}`);
     }
 

@@ -7,12 +7,13 @@ export default {
   },
   parse: (expression: string, timeUnit: TimeUnit) => {
     let result = [];
-    const [, stepFactor] = expression.split(Token.Slash);
+    const [, stepFactorStr] = expression.split(Token.Slash);
+    const stepFactor = Number(stepFactorStr);
 
     for (
       let i = timeUnit.lowerBound;
       i <= timeUnit.upperBound;
-      i += Number(stepFactor)
+      i += stepFactor
     ) {
       result.push(i);
     }

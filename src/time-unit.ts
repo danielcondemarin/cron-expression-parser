@@ -12,3 +12,8 @@ export const Hours = {
   lowerBound: 0,
   upperBound: 23,
 };
+
+export const DayOfMonth = {
+  lowerBound: 1,
+  upperBound: 31,
+};

@@ -34,7 +34,7 @@ describe("Given I parse a valid cron expression", () => {
     ${"-"}   | ${"* 0-10 * * *"}   | ${sequence(0, 10)}
     ${"*"}   | ${"* * * * *"}      | ${sequence(0, 23)}
   `(
-    "When the hour part uses the operator '$operator'",
+    "When the hour contains the operator '$operator'",
     ({ expression, expected }) => {
       it("Then it parses it successfully", () => {
         const parsed = parser(expression);
@@ -42,14 +42,33 @@ describe("Given I parse a valid cron expression", () => {
       });
     }
   );
+
+  describe.each`
+    operator | expression          | expected
+    ${","}   | ${"* * 1,5,10 * *"} | ${[1, 5, 10]}
+    ${"*/"}  | ${"* * */15 * *"}   | ${[1, 16, 31]}
+    ${"-"}   | ${"* * 1-10 * *"}   | ${sequence(1, 10)}
+    ${"*"}   | ${"* * * * *"}      | ${sequence(1, 31)}
+  `(
+    "When the day of the month contains the operator '$operator'",
+    ({ expression, expected }) => {
+      it("Then it parses it successfully", () => {
+        const parsed = parser(expression);
+        expect(parsed.dayOfMonth).toEqual(expected);
+      });
+    }
+  );
 });
 
 describe("Given I parse an invalid cron expression", () => {
   describe.each`
-    expression
-    ${"0-90 * * * *"}
-    ${"* 0-60 * * *"}
-  `("When the range is out of bounds", ({ expression }) => {
+    expression        | problem
+    ${"0-90 * * * *"} | ${"is out of bounds"}
+    ${"* 0-60 * * *"} | ${"is out of bounds"}
+    ${"* * 0-10 * *"} | ${"is out of bounds"}
+    ${"* a-b * * *"}  | ${"has invalid values"}
+    ${"* * a-b * *"}  | ${"has invalid values"}
+  `("When the range $problem", ({ expression }) => {
     it("Then the parser throws an InvalidRangeError", () => {
       expect.assertions(1);
 
