@@ -9,7 +9,7 @@ const sequence = (start: number, end: number): number[] => {
   return seq;
 };
 
-describe("Given I have a valid cron expression", () => {
+describe("Given I parse a valid cron expression", () => {
   describe.each`
     operator | expression          | expected
     ${","}   | ${"0,5,10 * * * *"} | ${[0, 5, 10]}
@@ -19,7 +19,7 @@ describe("Given I have a valid cron expression", () => {
   `(
     "When the minute part uses the operator '$operator'",
     ({ expression, expected }) => {
-      it("parses it successfully", () => {
+      it("Then it parses it successfully", () => {
         const parsed = parser(expression);
         expect(parsed.minute).toEqual(expected);
       });
@@ -35,7 +35,7 @@ describe("Given I have a valid cron expression", () => {
   `(
     "When the hour part uses the operator '$operator'",
     ({ expression, expected }) => {
-      it("parses it successfully", () => {
+      it("Then it parses it successfully", () => {
         const parsed = parser(expression);
         expect(parsed.hour).toEqual(expected);
       });
