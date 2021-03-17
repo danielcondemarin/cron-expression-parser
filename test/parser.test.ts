@@ -1,3 +1,4 @@
+import { InvalidRangeError } from "../src/operations/range";
 import parser from "../src/parser";
 
 const sequence = (start: number, end: number): number[] => {
@@ -41,4 +42,22 @@ describe("Given I parse a valid cron expression", () => {
       });
     }
   );
+});
+
+describe("Given I parse an invalid cron expression", () => {
+  describe.each`
+    expression
+    ${"0-90 * * * *"}
+    ${"* 0-60 * * *"}
+  `("When the range is out of bounds", ({ expression }) => {
+    it("Then the parser throws an InvalidRangeError", () => {
+      expect.assertions(1);
+
+      try {
+        parser(expression);
+      } catch (err) {
+        expect(err).toBeInstanceOf(InvalidRangeError);
+      }
+    });
+  });
 });

@@ -1,6 +1,13 @@
 import { TimeUnit } from "../time-unit";
 import { Token } from "./tokens";
 
+export class InvalidRangeError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "InvalidRangeError";
+  }
+}
+
 export default {
   canParse: (expression: string) => {
     return (
@@ -20,6 +27,10 @@ export default {
 
     let range = [];
     const [start, end] = expression.split(Token.Dash).map(Number);
+
+    if (start < timeUnit.lowerBound || end > timeUnit.upperBound) {
+      throw new InvalidRangeError(`Invalid range bounds: ${expression}`);
+    }
 
     for (let m = start; m <= end; m++) {
       range.push(m);
