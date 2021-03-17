@@ -1,5 +1,7 @@
+import { Token } from "./tokens";
+
 const range = (expression: string): number[] => {
-  if (expression === "*") {
+  if (expression === Token.Asterisk) {
     let firstToLast = [];
 
     for (let i = 0; i <= 59; i++) {
@@ -10,7 +12,7 @@ const range = (expression: string): number[] => {
   }
 
   let range = [];
-  const [start, end] = expression.split("-").map(Number);
+  const [start, end] = expression.split(Token.Dash).map(Number);
 
   for (let m = start; m <= end; m++) {
     range.push(m);
