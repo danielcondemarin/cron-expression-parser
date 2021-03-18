@@ -22,6 +22,11 @@ export type ParsedExpression = {
 const parsers = [list, step, range];
 
 const parsePart = (part: string, timeUnit: TimeUnit) => {
+  const asNumber = Number(part);
+  if (!isNaN(asNumber)) {
+    return [asNumber];
+  }
+
   for (let parser of parsers) {
     if (parser.canParse(part)) {
       return parser.parse(part, timeUnit);
