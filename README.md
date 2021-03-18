@@ -1,5 +1,6 @@
 ### Cron expression parser
 
+
 #### Pre-requirements
 
 - [Nodejs](https://nodejs.org/en/download/)
@@ -7,6 +8,7 @@
 #### Installation
 
 ```
+$ git clone https://github.com/danielcondemarin/cron-expression-parser && cd cron-expression-parser
 $ npm install
 ```
 
