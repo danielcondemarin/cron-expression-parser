@@ -32,9 +32,10 @@ $ npm run test:watch
 
 #### Notes
 
-Due to time, more complex "list" cron expressions like the following are not handled. 
+Due to time, more complex "list" and "step" cron expressions like the following are not handled. 
 - `* 1-3,4-6 * * * cmd` 
 - `* */2,3-5 * * * cmd` 
+- `23 0-23/2 * * * cmd`
 
-It should not be difficult to extend the [list](./src/parser/operations/list.ts) parser to implement this.
+It should not be difficult to extend the [list](./src/parser/operations/list.ts) and [step](./src/parser/operations/step.ts) parsers to implement these.
 

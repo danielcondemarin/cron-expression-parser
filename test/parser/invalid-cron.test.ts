@@ -5,7 +5,7 @@ import { MissingExpressionPartsError } from "../../src/parser/parser";
 
 describe("Given I parse an invalid cron expression", () => {
   describe("When the expression is missing parts", () => {
-    it("Then throws an InvalidExpressionError", () => {
+    it("Then throws an MissingExpressionPartsError", () => {
       expect.assertions(1);
 
       try {

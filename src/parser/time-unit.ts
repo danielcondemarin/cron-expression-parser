@@ -25,5 +25,5 @@ export const Month = {
 
 export const DayOfWeek = {
   lowerBound: 0,
-  upperBound: 7,
+  upperBound: 6,
 };

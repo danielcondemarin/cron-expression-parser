@@ -11,7 +11,7 @@ const sequence = (start: number, end: number): number[] => {
 
 describe("Given I parse a valid cron expression", () => {
   describe("When the expression has simple values", () => {
-    it("Then it parsed successfully", () => {
+    it("Then it is parsed successfully", () => {
       const parsedExpression = parser("0 0 1 1 0 cmd");
       expect(parsedExpression).toEqual({
         minute: [0],
@@ -31,7 +31,7 @@ describe("Given I parse a valid cron expression", () => {
     ${"-"}   | ${"0-10 * * * * cmd"}   | ${sequence(0, 10)}
     ${"*"}   | ${"* * * * * cmd"}      | ${sequence(0, 59)}
   `(
-    "When the minute part uses the operator '$operator'",
+    "When the minute contains the operator '$operator'",
     ({ expression, expected }) => {
       it("Then it is parsed successfully", () => {
         const parsed = parser(expression);
@@ -91,9 +91,9 @@ describe("Given I parse a valid cron expression", () => {
   describe.each`
     operator | expression           | expected
     ${","}   | ${"* * * * 1,2 cmd"} | ${[1, 2]}
-    ${"*/"}  | ${"* * * * */7 cmd"} | ${[0, 7]}
+    ${"*/"}  | ${"* * * * */6 cmd"} | ${[0, 6]}
     ${"-"}   | ${"* * * * 1-5 cmd"} | ${sequence(1, 5)}
-    ${"*"}   | ${"* * * * * cmd"}   | ${sequence(0, 7)}
+    ${"*"}   | ${"* * * * * cmd"}   | ${sequence(0, 6)}
   `(
     "When the day of the week contains the operator '$operator'",
     ({ expression, expected }) => {
