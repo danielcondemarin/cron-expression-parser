@@ -1,6 +1,6 @@
 {
+  "include":["src", "bin"],
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src"
+    "outDir": "./dist"
   }
 }

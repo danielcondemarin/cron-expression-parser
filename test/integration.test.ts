@@ -2,7 +2,7 @@ describe("Given I pass a cron expression to the cli", () => {
   let logSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    logSpy = jest.spyOn(console, "log");
+    logSpy = jest.spyOn(console, "log").mockReturnValue();
   });
 
   describe("When is valid", () => {

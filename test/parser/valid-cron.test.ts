@@ -1,4 +1,4 @@
-import parser from "../src/parser";
+import parser from "../../src/parser";
 
 const sequence = (start: number, end: number): number[] => {
   let seq = [];

@@ -10,6 +10,13 @@ import {
   TimeUnit,
 } from "./time-unit";
 
+export class MissingExpressionPartsError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "MissingExpressionPartsError";
+  }
+}
+
 export type ParsedExpression = {
   minute: number[];
   hour: number[];
@@ -35,6 +42,14 @@ const parsePart = (part: string, timeUnit: TimeUnit) => {
 };
 
 const parser = (expression: string): ParsedExpression => {
+  const parts = expression.split(" ");
+
+  if (parts.length < 6) {
+    throw new MissingExpressionPartsError(
+      "Cron expression has missing parts. See https://linux.die.net/man/5/crontab for reference"
+    );
+  }
+
   const [
     minuteStr,
     hourStr,
@@ -42,7 +57,7 @@ const parser = (expression: string): ParsedExpression => {
     monthStr,
     dayOfWeek,
     command,
-  ] = expression.split(" ");
+  ] = parts;
 
   return {
     minute: parsePart(minuteStr, Minutes),
